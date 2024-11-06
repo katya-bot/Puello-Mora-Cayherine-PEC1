@@ -1,0 +1,60 @@
+---
+title: "Metadatos_metabolitos"
+author: "Catherine PM"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+# Metadatos del Dataset de Metabolitos
+
+Este documento contiene los metadatos del análisis realizado sobre el dataset de datos ómicos sobre metabolitos.
+Se incluyen tanto los datos de expresión como los metadatos de las muestras y grupos experimentales.
+
+
+ _Cargo el Objeto SummarizedExperiment_
+
+
+```{r load-data, echo=TRUE}
+# Cargo SummarizedExperiment:
+
+if (!requireNamespace("SummarizedExperiment", quietly = TRUE)) {
+  BiocManager::install("SummarizedExperiment")
+}
+library(SummarizedExperiment)
+
+load("C:/Users/Usuario/Desktop/Puello-Mora-Catherine-PEC1/SE_CatherinePM_PEC1.Rda")
+
+# Verifica si SE está disponible:
+
+if (!exists("se")) {
+  stop("El objeto 'se' no está disponible en el entorno. Asegúrate de cargar el archivo .Rda.")
+} else {
+  print("El objeto 'se' está cargado y listo para su uso.")
+}
+
+```
+
+# Extraigo los metadatos y los pongo en una tabla
+
+```{r cars}
+
+metadatos <- as.data.frame(colData(se))
+knitr::kable(metadatos, caption = "Tabla de Metabolitos")
+
+
+
+
+```
+
+los guardo en csv _(pongo echo=TRUE para que se vea el código)_
+
+```{r pressure, echo=TRUE}
+
+
+write.csv(metadatos, file = "C:/Users/Usuario/Desktop/Puello-Mora-Catherine-PEC1/metadatos.csv", row.names = TRUE)
+write.table(metadatos, file = "C:/Users/Usuario/Desktop/Puello-Mora-Catherine-PEC1/metadatos.tsv", sep = "\t", row.names = TRUE, col.names = TRUE, quote = FALSE)
+
+
+```
+
+
